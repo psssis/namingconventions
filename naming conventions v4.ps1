@@ -1,9 +1,20 @@
 ﻿################################
 ########## PARAMETERS ##########
 ################################  
-$ScanFolder = "C:\MyPackages"
-$NamingConventions = "C:\MyPackages\JamieThomson.csv"
-$ReportFolder = "C:\MyPackages"
+[CmdletBinding()]
+Param(
+  [ValidateScript({ Test-Path $_ -PathType Container })]
+  [Parameter(Mandatory=$True)]
+  [string]$ScanFolder,
+  
+  [ValidateScript({ Test-Path $_ -PathType leaf })]
+  [Parameter(Mandatory=$True)]
+  [string]$NamingConventions,
+  
+  [ValidateScript({ Test-Path $_ -PathType Container })]
+  [Parameter(Mandatory=$True)]
+  [string]$ReportFolder
+)
 
 
 #################################################
@@ -20,7 +31,8 @@ Write-Host "====================================================================
 
 $startTime = [System.DateTime]::Now
 
-# Include functions from secondairy file
+# Include functions from secondary file
+if(!$PSScriptRoot){ $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent }
 . "$PSScriptRoot\functions.ps1"
 
 
