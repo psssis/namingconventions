@@ -31,7 +31,8 @@ Write-Host "====================================================================
 
 $startTime = [System.DateTime]::Now
 
-# Include functions from secondairy file
+# Include functions from secondary file
+if(!$PSScriptRoot){ $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent }
 . "$PSScriptRoot\functions.ps1"
 
 
